@@ -1,0 +1,6 @@
+# Python
+__pycache__/
+*.pyc
+# 临时
+*.log
+.DS_Store
