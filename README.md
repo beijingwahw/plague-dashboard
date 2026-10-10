@@ -4,6 +4,20 @@
 
 > ⚠️ 免责声明：本平台为公共卫生信息化教学演示系统，底图为高德官方深色矢量地图（JS API 2.0），行政区划为**真实地理数据**（全国 34 个省级行政区，DataV.GeoAtlas 省界已本地化到 `vendor/china-provinces.js`；市/区县边界与乡镇/街道位置按需在线加载）；病例数据仅由后台人工录入，**不代表任何真实疫情**。
 
+## 替换为你自己的高德 Key
+
+仓库内置的示例高德 Key 仅供演示，公开环境下请务必替换为你自己的 Key 并配置域名白名单：
+
+1. **申请 Key**：前往[高德开放平台控制台](https://console.amap.com) → 应用管理 → 创建新应用 → 添加 Key：
+   - 服务平台选择 **「Web端(JS API)」** —— 用于地图加载；
+   - 若 POI 检索（真实场所/乡镇街道）提示无权限，再添加一个 **「Web服务」** 类型的 Key 用于 `restapi.amap.com` 调用（2021-12 后申请的 Key 可能还需在控制台配置**安全密钥 jscode**，按页面提示操作即可）。
+2. **替换位置（共 3 处，均为同一样式 Key）**：
+   - `index.html` 底部：`<script src="https://webapi.amap.com/maps?v=2.0&key=你的KEY">`（地图 JS API 加载）；
+   - `js/map-view.js` 顶部：`const AMAP_KEY = '你的KEY'`（兜底加载）；
+   - `js/regions.js` 顶部：`const AMAP_WS_KEY = '你的KEY'`（Web 服务 POI / 行政区划检索）。
+   若申请了两种类型的 Key，前两处填 JS API Key，第三处填 Web 服务 Key。
+3. **安全设置**：在高德控制台为 Key 配置 **域名白名单**（本地调试可加 `localhost` / `127.0.0.1`），防止他人盗用配额；免费 Key 有 QPS 限流，平台已内置串行队列与重试。
+
 ## 快速开始
 
 ```bash
